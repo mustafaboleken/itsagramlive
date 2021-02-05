@@ -507,6 +507,14 @@ class ItsAGramLive:
         self.is_running = False
         print('Bye bye')
 
+    def get_comment(self, broadcast_id):
+        if self.send_request("live/{}/get_comment/".format(broadcast_id)):
+            if 'comments' in self.LastJson:
+                for comment in self.LastJson['comments']:
+                    print(f"{comment['user']['username']} has posted a new comment: {comment['text']}")
+            else:
+                print("There is no comments.")
+
     def get_comments(self):
         if self.send_request("live/{}/get_comment/".format(self.broadcast_id)):
             if 'comments' in self.LastJson:
