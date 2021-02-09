@@ -506,22 +506,42 @@ class ItsAGramLive:
         print('Exiting...')
         self.is_running = False
         print('Bye bye')
-
+        
+    def comment_stream(self, broadcast_id):
+        last_five_message = ['-','-','-','-','-']
+        index = 0
+        while True:
+            time.sleep(3)
+            lastest_comments = self.get_comment(broadcast_id)
+            for comment in lastest_comments:
+                print("last_five_message")
+                print(last_five_message)
+                if comment not in last_five_message:
+                    last_five_message[index] = comment
+                    index = (index+1) % 5
+                    print(comment)
+            
     def get_comment(self, broadcast_id):
+        data = []
         if self.send_request("live/{}/get_comment/".format(broadcast_id)):
             if 'comments' in self.LastJson:
                 for comment in self.LastJson['comments']:
-                    print(f"{comment['user']['username']} has posted a new comment: {comment['text']}")
+                    temp = f"{comment['user']['username']}: {comment['text']}"
+                    data.append(temp)
             else:
                 print("There is no comments.")
+        return data
 
     def get_comments(self):
+        data = []
         if self.send_request("live/{}/get_comment/".format(self.broadcast_id)):
             if 'comments' in self.LastJson:
                 for comment in self.LastJson['comments']:
-                    print(f"{comment['user']['username']} has posted a new comment: {comment['text']}")
+                    temp = f"{comment['user']['username']} has posted a new comment: {comment['text']}"
+                    data.append(temp)
             else:
                 print("There is no comments.")
+        return data
 
     def pin_comment(self, to_send):
         if self.send_comment(msg=to_send):
