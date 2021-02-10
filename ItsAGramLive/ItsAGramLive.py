@@ -514,8 +514,6 @@ class ItsAGramLive:
             time.sleep(3)
             lastest_comments = self.get_comment(broadcast_id)
             for comment in lastest_comments:
-                print("last_five_message")
-                print(last_five_message)
                 if comment not in last_five_message:
                     last_five_message[index] = comment
                     index = (index+1) % 5
