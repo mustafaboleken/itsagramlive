@@ -22,7 +22,7 @@ let stompClient;
       },
 
       // Broker URL, should start with ws:// or wss:// - adjust for your broker setup
-      brokerURL: "ws://134.209.244.238:15674/ws",
+      brokerURL: "wss://muzayedetv.org:15673/ws",
 
       // If disconnected, it will retry after 200ms
       reconnectDelay: 200,
