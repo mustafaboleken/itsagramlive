@@ -517,7 +517,7 @@ class ItsAGramLive:
                 if comment not in last_five_message:
                     last_five_message[index] = comment
                     index = (index+1) % 5
-                    os.system('cmd /c "node server.js {} {}"'.format('Instagram', comment))
+                    os.system('node server.js {} {}'.format('Instagram', comment))
             
     def get_comment(self, broadcast_id):
         data = []
