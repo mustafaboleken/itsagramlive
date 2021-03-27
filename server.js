@@ -47,11 +47,14 @@ let stompClient;
       if (!stompClient.connected) {
         return false;
       }
+      const payLoad = { user: user, message: message };
+      stompClient.publish({destination: '/topic/chatunvermezat_main', body: JSON.stringify(payLoad)});
+      return true;
       if (message.length > 0) {
         const payLoad = { user: user, message: message };
 
         // You can additionally pass headers
-        stompClient.publish({destination: '/topic/chat', body: JSON.stringify(payLoad)});
+        stompClient.publish({destination: '/topic/chatunvermezat_main', body: JSON.stringify(payLoad)});
       }
       return true;
     }

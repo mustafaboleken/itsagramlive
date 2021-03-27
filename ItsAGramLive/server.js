@@ -4,10 +4,10 @@ Object.assign(global, { WebSocket: require('ws') });
 const StompJs = require('@stomp/stompjs/esm5');
 
 process.argv.forEach(function (val, index, array) {
-	if(index == 2){
+	if(index == 3){
 		a = val;
 	}
-	if(index == 3){
+	if(index == 4){
 		b = val;
 	}
 });
@@ -22,7 +22,7 @@ let stompClient;
       },
 
       // Broker URL, should start with ws:// or wss:// - adjust for your broker setup
-      brokerURL: "ws://134.209.244.238:15674/ws",
+      brokerURL: "wss://muzayedetv.org:15673/ws",
 
       // If disconnected, it will retry after 200ms
       reconnectDelay: 200,
@@ -47,11 +47,14 @@ let stompClient;
       if (!stompClient.connected) {
         return false;
       }
+      const payLoad = { user: user, message: message };
+      stompClient.publish({destination: '/topic/chatunvermezat_main', body: JSON.stringify(payLoad)});
+      return true;
       if (message.length > 0) {
         const payLoad = { user: user, message: message };
 
         // You can additionally pass headers
-        stompClient.publish({destination: '/topic/chat', body: JSON.stringify(payLoad)});
+        stompClient.publish({destination: '/topic/chatunvermezat_main', body: JSON.stringify(payLoad)});
       }
       return true;
     }

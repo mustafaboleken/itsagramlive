@@ -427,6 +427,13 @@ class ItsAGramLive:
         else:
             return False
 
+    def end_broadcast_with_id(self, broadcast_id):
+        data = json.dumps({'_uuid': self.uuid, '_uid': self.username_id, '_csrftoken': self.token})
+        if self.send_request(endpoint='live/' + str(broadcast_id) + '/end_broadcast/',
+                             post=self.generate_signature(data)):
+            return True
+        return False
+
     def end_broadcast(self):
         data = json.dumps({'_uuid': self.uuid, '_uid': self.username_id, '_csrftoken': self.token})
         if self.send_request(endpoint='live/' + str(self.broadcast_id) + '/end_broadcast/',
